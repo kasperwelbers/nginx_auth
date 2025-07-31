@@ -1,0 +1,5 @@
+.env
+
+# Docker stuff
+/volumes
+*.log
