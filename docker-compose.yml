@@ -11,10 +11,9 @@ services:
       - test_app
 
   oauth2_proxy:
-    image: quay.io/oauth2-proxy/oauth2-proxy:latest
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.5.1
     container_name: oauth2_proxy
     environment:
-      # Replace these with your Auth0 details
       - OAUTH2_PROXY_PROVIDER=oidc
       - OAUTH2_PROXY_OIDC_ISSUER_URL=${AUTH0_DOMAIN}/
       - OAUTH2_PROXY_CLIENT_ID=${AUTH0_CLIENT_ID}
@@ -22,18 +21,14 @@ services:
       - OAUTH2_PROXY_REDIRECT_URL=http://localhost/oauth2/callback
       - OAUTH2_PROXY_EMAIL_DOMAINS=*
       - OAUTH2_PROXY_COOKIE_SECRET=${COOKIE_SECRET}
-
-      # Additional settings for a smoother experience
       - OAUTH2_PROXY_REVERSE_PROXY=true
       - OAUTH2_PROXY_PASS_ACCESS_TOKEN=true
       - OAUTH2_PROXY_SET_XAUTHREQUEST=true
-      # - OAUTH2_PROXY_COOKIE_REFRESH=15m
-      # - OAUTH2_PROXY_CODE_CHALLENGE_METHOD=s256
-
+      - OAUTH2_PROXY_COOKIE_REFRESH=15m
+      - OAUTH2_PROXY_CODE_CHALLENGE_METHOD=s256
+      - OAUTH2_PROXY_HTTP_ADDRESS=0.0.0.0:4180
     ports:
       - "4180:4180"
-    command:
-      - "--http-address=0.0.0.0:4180"
 
   test_app:
     build: ./app
