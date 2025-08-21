@@ -10,12 +10,19 @@ This is a quick test for adding auth to nginx using oauth2_proxy and auth0.
 
 ### Step 2: Set .env variables
 
-1. Copy the `example.env` file to `.env`.
-2. Fill in the required variables (you can find these in your Auth0 application settings):
-   - `AUTH0_DOMAIN`
-   - `AUTH0_CLIENT_ID`
-   - `AUTH0_CLIENT_SECRET`
-   - `COOKIE_SECRET` (generate a random string using `openssl rand -base64 32 | tr -d '\n'`)
+In your Auth0 Application settings you can find your domain URL, client id and client secret. 
+Create a .env file in the root of this repo to set these variables.
+We also need to provide a 32 byte secret for oauth2 proxy.
+
+```
+AUTH0_DOMAIN=<AUTH0_DOMAIN> (something like https://dev-ejofijsdf.eu.auth0.com)
+AUTH0_CLIENT_ID=<AUTH0_CLIENT_ID>
+AUTH0_CLIENT_SECRET=<AUTH0_CLIENT_SECRET>
+
+COOKIE_SECRET="9v3VXu2klBs1lgsO5yDv1vRvgb8MlI2FAARehL4F6jg="
+```
+Note that the COOKIE_SECRET is not very secret since we include it in this repo. 
+When replicating this on a server, make sure to generate a new one  (`openssl rand -base64 32 | tr -d '\n'`)
 
 ### Step 3: Run the application
 
