@@ -30,4 +30,4 @@ When replicating this on a server, make sure to generate a new one  (`openssl ra
 docker-compose up
 ```
 
-Now open your browser and go to `http://localhost/app_with_auth`. You should be redirected to the Auth0 login page. After logging in, you will be redirected back to the application.
+Now open your browser and go to `http://localhost`. You should be redirected to the Auth0 login page. After logging in, you will be redirected back to the application.
