@@ -5,7 +5,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./conf.d:/etc/nginx/conf.d
+      - ./nginx_conf/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx_conf/includes:/etc/nginx/includes:ro
+
     depends_on:
       - oauth2_proxy
       - test_app
@@ -25,8 +27,11 @@ services:
       - OAUTH2_PROXY_PASS_ACCESS_TOKEN=true
       - OAUTH2_PROXY_SET_XAUTHREQUEST=true
       - OAUTH2_PROXY_COOKIE_REFRESH=15m
-      - OAUTH2_PROXY_CODE_CHALLENGE_METHOD=s256
+      - OAUTH2_PROXY_CODE_CHALLENGE_METHOD=S256
       - OAUTH2_PROXY_HTTP_ADDRESS=0.0.0.0:4180
+      ## Don't disable COOKIE_SECURE on actual server with ssl
+      - OAUTH2_PROXY_COOKIE_SECURE=false
+
     ports:
       - "4180:4180"
 
